@@ -1,0 +1,1 @@
+MUSS (Main User System Software) is the main software that runs while in production. On a kiosk, its the end users touch interface, or on a cashier, the payment stuff, etc.

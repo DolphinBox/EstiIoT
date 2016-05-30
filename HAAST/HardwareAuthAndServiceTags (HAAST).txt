@@ -1,0 +1,2 @@
+This is the server that handles the authentication of hardware to determine if the EstiIoT software is running on Genuine Esti Hardware.
+This server will also handle Service Tags, which tracks the hardwares factory settings, changes, and warrenty.

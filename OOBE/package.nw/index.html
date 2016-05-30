@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<script>
+	var gui = require('nw.gui');
+	
+	//ENABLE THIS FOR PRODUCTION!!!
+	gui.Window.get().enterKioskMode();
+</script>
+
+<!--
+	Identity by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	-----------
+	EstiIoT Out of Box Experiance (OOBE).
+	(c) 2016 EstiNet
+	For use only on a EstiIoT System. Unauthorized use is prohibited.
+-->
+<script>
+	//Dont Steal EstiIoT (DSEI)
+	//
+	//Some way for the software to handshake with the hardware to verify it is running on genuine EstiIoT Systems.
+</script>
+<html>
+	<head>
+		<title>EstiIoT DEV - OOBE</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<!-- Node Modules -->
+		<script>
+			//Add Node Modules Here.
+			var os = require('os');
+			var events = require('events');
+			var fs = require('fs')
+
+			
+			//Add variable things here.
+			var eventEmitter = new events.EventEmitter();
+			
+			var currentPage = 0;
+			var pageContent1 = "";
+			var pageContent2 = "";
+		</script>
+		
+		<!-- Functions -->
+		<script>
+			//Error Handling.
+			var stopError = function stopError(errorInfo){
+				//A function or line of code has called for a stop error.
+				if (typeof errorInfo === 'undefined') { errorInfo = 'UNKNOWN_ERROR'; }
+				alert("EstiIoT-OOBE has run into an error and had to stop. If this is the first time you have recived the error, restart this node. You may continue, but this may cause unexpected results. Error Info: " + errorInfo);
+			}
+			//This is a fairly crude way of handling a thrown expecption. Can cause the program to be in a unknown state. 
+			process.on('uncaughtException', (err) => {
+				stopError(err);
+			});
+
+			//Read the pages and store them in memory.
+			fs.readFile('OOBE\\page1.html', 'utf8', function (err,data) {
+				if (err) {
+					stopError(err);
+				}
+				pageContent1 = data;
+			});
+			fs.readFile('OOBE\\page2.html', 'utf8', function (err,data) {
+				if (err) {
+					stopError(err);
+				}
+				pageContent2 = data;
+			});
+		</script>
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main">
+						<header>
+							<span class="pageContents">
+								<span class="avatar"><img src="images/avatar.jpg" alt="" /></span>
+								<h1>Welcome to Esti<font color="orange">IoT</font></h1>
+								<p>Becuase this is your first boot, lets set this node up.</p>
+							</span>
+						</header>
+						<footer>
+							<ul class="actions">
+								<li><button onclick="eventEmitter.emit('backPage');">Back</a><button onclick="eventEmitter.emit('nextPage');">Next</a></li>
+							</ul>
+						</footer>
+					</section>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="copyright">
+							<li>&copy; EstiNet</li><li>This is EstiIoT-OOBE running on <span class="results"></span></li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						</ul>
+						<audio autoplay loop>
+							<!-- Background music can only be a thing if its a fitting song, and not there to annoy the consumer. -->
+							<!--<source src="OOBE\welcomemusic.ogg" type="audio/ogg">-->
+							Esti-OOBE has run into an error playing the background music. Are proper codecs and drivers installed?
+						</audio>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<!--[if lte IE 8]><script src="assets/js/respond.min.js"></script><![endif]-->
+			<script>
+				if ('addEventListener' in window) {
+					window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-loading\b/, ''); });
+					document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+				}
+			</script>
+			
+			<script>
+			//EstiIoT - Node.js Code.
+			
+			document.querySelector('.results').innerHTML = os.platform() + "-" + os.release();
+			
+			//Main page swicthing system.
+			var switchPage = function switchPage(){
+				currentPage++;
+				
+				switch(currentPage) {
+					case 1: //Move to 1st page: Welcome Video.
+						//alert(currentPage);
+						document.querySelector('.pageContents').innerHTML = pageContent1;
+						break;
+					case 2: //Move to 2nd Page: idk
+						document.querySelector('.pageContents').innerHTML = pageContent2;
+						break;
+					case 3:
+						//Get the results from the previous page
+						var DHCPsetting = document.querySelector(".network_DHCP").value;
+						var IPSetting = document.querySelector(".network_IP").value;
+						alert(DHCPsetting);
+						alert(IPSetting);
+						break;
+					default:
+					    //alert(currentPage);
+						stopError("UNEXPECTED_SWITCH_VALUE for OOBE_SWITCHPAGE");
+						
+}
+				//alert('ring ring ring');
+				
+			}
+			eventEmitter.on('nextPage', switchPage);
+			
+			var turnBackPage = function turnBackPage(){
+				if(currentPage <= 1){
+					//Do nothing, you cant go back!
+				}else{
+					currentPage = currentPage - 2;
+					switchPage();
+				}
+			}
+			eventEmitter.on('backPage', turnBackPage)
+			
+		</script>
+
+	</body>
+</html>

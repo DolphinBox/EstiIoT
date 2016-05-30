@@ -1,0 +1,1 @@
+Runs the background services, such as auto-updates, maintance, and anti-virus/security.
