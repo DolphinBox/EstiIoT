@@ -1,0 +1,1 @@
+Authenticates Nodes during the OOBE (Registering that node into the database), and during startup (When HAAST does its hardware and software verifaction).

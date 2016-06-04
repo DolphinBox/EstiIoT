@@ -1,0 +1,2 @@
+Super importent server becuase all nodes communicate to this single server, as its what proxys requests to the different servers, depending on what the node is trying to do.
+This is probabbly the most mission critical server, since if it goes down, all nodes in the world (literally) stop working.
