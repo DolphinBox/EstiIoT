@@ -17,5 +17,6 @@ Software Status: In Development
 
 Hardware Status: Not yet in development.
 
-
+##Legal
+Use of EstiIoT on non-EstiIoT Authorized Hardware or Software is prohibited. Do not attempt to tamper with to software to bypass security mesures to circumvent any part of the software. 
 (c) 2016 EstiNet
