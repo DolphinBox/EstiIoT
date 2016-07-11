@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+- 0.1
+before_script:
+- npm install -g grunt-cli
+- npm install -g bower
+- npm install --no-bin-links
+- bower install
+env:
+  global:
+  - secure: L8css4A2Hw82lK++utcC7sBxMYyOTeNI8wytpIHERUiS3iJC2z8F+SwroPt8iwl9qkh0TM6YASc+pYZ55xCe3OsNdK2UhWpppP2fwDuE6JeNIBYE8TwtLKGPtqPvRZeG62bHcnpAkkSKXlS00klSKalUCX/B1Q9o1qs4HBXR2TE=
+  - secure: jDtanjclUb23DGD2xUuHBb8Cp0z0sU4EMf0mc1hoYOWqaSckYE57g8x7se+GBzNnQzFvlPUDs1TlRGYR4XcU/wu9lJi5un9frJAq47A/EEzD8dor9QjWRNTgFXQ+yCPn0oAWoJaJ8+k5gEFIjrjfz36jBYGtFavRbp14NjjdwHM=

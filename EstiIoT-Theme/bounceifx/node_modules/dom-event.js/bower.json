@@ -1,0 +1,10 @@
+{
+  "name": "dom-event.js",
+  "version": "0.0.1",
+  "devDependencies": {
+    "requirejs": "~2.1.11",
+    "easy-amdtest": "~0.0.1",
+    "fakey": "~0.0.7",
+    "jquery": "~1.11.1"
+  }
+}
